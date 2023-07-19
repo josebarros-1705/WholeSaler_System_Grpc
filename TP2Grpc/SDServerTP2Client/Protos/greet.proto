@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option csharp_namespace = "SDServerTP2Client";
+
+package pedidos;
+
+
+service Pedidos {
+  rpc Reservas (ModalidadeDomicilio) returns (CodigoAdministrativo);
+  rpc Ativacao (CodigoAdministrativo) returns (Confirmacao);
+  rpc Desativacao (CodigoAdministrativo) returns (Confirmacao);
+  rpc Terminacao (CodigoAdministrativo) returns (Confirmacao);
+
+ rpc VerServicos (AdminData) returns (stream ListaServicos);
+  rpc AdicionarDomicilio (DomicilioData) returns (Confirmacao);
+ rpc RemoverDomicilios(DomicilioData) returns (Confirmacao);
+ rpc VerDomicilios (AdminData) returns (stream ListaDomicilios);
+}
+
+
+message ModalidadeDomicilio {
+  string mod = 1;
+  string rua = 2;
+  string nPorta = 3;
+}
+
+message DomicilioData {
+  string rua = 1;
+  string nPorta = 2;
+}
+
+message CodigoAdministrativo {
+  string codAdm = 1;
+}
+
+message Confirmacao {
+  bool conf = 1;
+  int32 tempo = 2;
+}
+
+message AdminData{
+
+}
+
+message ListaServicos {
+  string servs = 1;
+}
+
+message ListaDomicilios {
+  string domicilios = 1;
+}
